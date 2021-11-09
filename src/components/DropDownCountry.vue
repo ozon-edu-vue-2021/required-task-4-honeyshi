@@ -1,14 +1,21 @@
 <template>
   <div class="dropdown-country-selector">
-    <label :for="id">{{ label }}</label>
-    <input
-      :id="id"
-      :value="selectedValue"
-      @focus="isDropdownOpen = true"
-      v-click-outside="hideDropdown"
-    />
+    <div class="dropdown-selector input-label-wrapper">
+      <label :for="id" class="dropdown-selector label">{{ label }}</label>
+      <div class="dropdown-selector input-wrapper">
+        <input
+          :id="id"
+          :value="selectedValue"
+          @focus="showDropdown"
+          class="dropdown-selector input"
+          v-click-outside="hideDropdown"
+        />
+        <IconUp v-if="isDropdownOpen" @click="hideDropdown" />
+        <IconDown v-else @click="showDropdown" />
+      </div>
+    </div>
 
-    <div v-if="isDropdownOpen" class="dropdown-country-selector___values">
+    <div v-if="isDropdownOpen" class="dropdown-selector values">
       <ul v-if="values.length">
         <li
           v-for="value in values"
@@ -25,8 +32,11 @@
 
 <script>
 import ClickOutside from "vue-click-outside";
+import IconDown from "./IconDown.vue";
+import IconUp from "./IconUp.vue";
 
 export default {
+  components: { IconDown, IconUp },
   props: {
     id: {
       type: String,
@@ -51,6 +61,9 @@ export default {
     };
   },
   methods: {
+    showDropdown() {
+      this.isDropdownOpen = true;
+    },
     hideDropdown() {
       this.isDropdownOpen = false;
     },

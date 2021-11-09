@@ -22,6 +22,8 @@ export default {
   background-color: #fafafa;
   padding: 24px;
   box-sizing: border-box;
+  display: flex;
+  justify-content: center;
 }
 
 html,
@@ -31,5 +33,11 @@ body {
 
 * {
   box-sizing: border-box;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
 }
 </style>

@@ -1,9 +1,5 @@
 <template>
   <div class="form">
-    <div class="row">
-      {{ formData }}
-    </div>
-
     <h3>Личные данные</h3>
     <div class="row">
       <Input id="surname" label="Фамилия" v-model="formData.surname" />
@@ -77,12 +73,18 @@
         />
       </div>
 
-      <span
-        >Иностранцы заполняют латинскими буквами. Например, Ivanov Ivan</span
-      >
+      <div class="foreigners-hint">
+        <small
+          >Иностранцы заполняют латинскими буквами. Например, Ivanov Ivan</small
+        >
+      </div>
 
       <div class="row">
-        <Input id="number_passport" label="Номер паспорта" />
+        <Input
+          id="number_passport"
+          label="Номер паспорта"
+          v-model="formData.passportNumber"
+        />
         <DropDownCountry
           id="countrygiven_passport"
           label="Страна выдачи"
@@ -126,7 +128,9 @@
       />
     </div>
 
-    <button>Подтвердить</button>
+    <div class="button-wrapper">
+      <button class="submit-button" @click="printFormData">Подтвердить</button>
+    </div>
   </div>
 </template>
 
@@ -173,16 +177,39 @@ export default {
     selectPassportType(value) {
       this.formData.passportType = value;
     },
+    printFormData() {
+      console.log(this.formData);
+    },
   },
 };
 </script>
 
 <style scoped>
 .form {
-  width: 30%;
+  border: solid #005bff 2px;
+  border-radius: 3px;
+  background-color: white;
+  padding: 2rem;
 }
 .row {
   display: flex;
   flex-direction: row;
+}
+.submit-button {
+  background-color: #005bff;
+  border-radius: 6px;
+  color: #fff;
+  padding: 0 20px;
+  border: 0;
+  height: 3rem;
+  cursor: pointer;
+}
+.button-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+.foreigners-hint {
+  color: #b3bcc5;
+  margin-bottom: 1rem;
 }
 </style>

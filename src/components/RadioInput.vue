@@ -45,5 +45,6 @@ export default {
 }
 .radio-label {
   margin-right: 0.5rem;
+  padding-left: 0.5rem;
 }
 </style>

@@ -35,6 +35,7 @@ export default {
   flex-direction: column;
   margin-bottom: 1rem;
   margin-right: 0.5rem;
+  width: 100%;
 }
 .input-label {
   margin-bottom: 0.5rem;
@@ -44,5 +45,16 @@ export default {
 }
 .radio-label {
   margin-right: 0.5rem;
+}
+input {
+  border: 2px solid #b3bcc5;
+  border-radius: 6px;
+  background-color: white;
+  color: #001a34;
+  outline: none;
+  padding: 10px;
+}
+input:hover {
+  border-color: #005bff;
 }
 </style>
