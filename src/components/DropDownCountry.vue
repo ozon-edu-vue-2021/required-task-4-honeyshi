@@ -6,9 +6,10 @@
         <input
           :id="id"
           :value="selectedValue"
-          @focus="showDropdown"
           class="dropdown-selector input"
           v-click-outside="hideDropdown"
+          @focus="showDropdown"
+          @input="handleInput"
         />
         <IconUp v-if="isDropdownOpen" @click="hideDropdown" />
         <IconDown v-else @click="showDropdown" />
@@ -69,6 +70,9 @@ export default {
     },
     handleValueSelection(value) {
       this.$emit("click", value);
+    },
+    handleInput(e) {
+      this.$emit("input", e.target.value);
     },
   },
   directives: {

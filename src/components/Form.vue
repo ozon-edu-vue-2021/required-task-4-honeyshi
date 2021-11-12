@@ -35,9 +35,10 @@
       <DropDownCountry
         id="citizenship"
         label="Гражданство"
-        :values="citizenships"
+        :values="filteredCitizenships"
         :selectedValue="formData.citizenship"
         @click="selectCitizenship"
+        @input="onSearchCitizenship"
       />
     </div>
     <div v-if="formData.citizenship === 'Russia'" class="row">
@@ -138,8 +139,10 @@
 import DropDownCountry from "./DropDownCountry.vue";
 import Input from "./Input.vue";
 import RadioInput from "./RadioInput.vue";
-import citizenships from "@/assets/data/citizenships.json";
 import DropDownPassport from "./DropDownPassport.vue";
+
+import citizenships from "@/assets/data/citizenships.json";
+import { debounce } from "@/helpers/debounce.js";
 
 export default {
   components: { Input, RadioInput, DropDownCountry, DropDownPassport },
@@ -165,7 +168,12 @@ export default {
         previousName: "",
       },
       citizenships: citizenships,
+      filteredCitizenships: citizenships,
+      debounceCitizenship: null,
     };
+  },
+  created() {
+    this.debounceCitizenship = debounce(this.filterCitizenship, 1000);
   },
   methods: {
     selectCitizenship(value) {
@@ -176,6 +184,15 @@ export default {
     },
     selectPassportType(value) {
       this.formData.passportType = value;
+    },
+    onSearchCitizenship(searchValue) {
+      this.formData.citizenship = searchValue;
+      this.debounceCitizenship(searchValue);
+    },
+    filterCitizenship(searchValue) {
+      this.filteredCitizenships = this.citizenships.filter((citizenship) =>
+        citizenship.nationality.toLowerCase().includes(searchValue)
+      );
     },
     printFormData() {
       console.log(this.formData);

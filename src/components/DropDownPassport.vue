@@ -106,6 +106,9 @@ export default {
   overflow-y: auto;
   margin-top: -0.3rem;
 }
+.dropdown-selector.values > .empty {
+  padding: 10px 12px;
+}
 .dropdown-selector.values ul li {
   padding: 10px 12px;
   cursor: pointer;
